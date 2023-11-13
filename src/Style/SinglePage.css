@@ -1,0 +1,32 @@
+body{
+    justify-content: center;
+    display: flex;
+}
+.box{
+    background-color:#8BD1F6;
+    width: 641px;
+    flex-wrap:wrap;
+}
+.top{
+    width:100%;
+    justify-content: center;
+    display: flex;
+    margin-top:10px;
+}
+h1{
+    color:#0A1F1C;
+    font-weight: bold;
+    font-size:30px;
+}
+.desc{
+width: 90%;
+}
+.bottom{
+    width:100%;
+    display:flex;
+    justify-content: space-around;
+}
+p{
+    color:#0A1F1C;
+    font-size:20px;
+}
