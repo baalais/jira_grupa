@@ -19,4 +19,4 @@ function SinglePage(){
         </html>
     )
 }
-// export default SinglePage;
+export default SinglePage;
