@@ -6,7 +6,6 @@ import Login from './Routes/Login';
 import Register from './Routes/Register';
 import AddTask from './Routes/Add-task';
 
-
 export default function Index() {
   return (
     <BrowserRouter>

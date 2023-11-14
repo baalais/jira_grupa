@@ -1,20 +1,42 @@
 import '../Style/Add-task.css';
 
 const AddTask = () => {
-    const handleSubmit = (e) => {
-      e.preventDefault();
-  
-      const title = e.target.title.value;
-      const description = e.target.description.value;
-      const date = e.target.date.value;
-      const time = e.target.time.value;
-      const priority = e.target.priority.value;
-  
-      // You can send the data to your server here using an API call or form submission.
-      console.log('Title:', title);
-      console.log('Description:', description);
-      console.log('Date:', date);
-    };
+      const handleSubmit = async (e) => { // <-- Ensure this function is marked as async
+        e.preventDefault();
+      
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        const dueDate = e.target.date.value;
+        const user_id = 1; // Assuming you have the user ID to pass
+      
+        const formData = {
+          title: title,
+          description: description,
+          date: dueDate,
+          user_id: user_id,
+        };
+      console.log(formData);
+        try {
+          const response = await fetch('http://localhost/a/db.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+      
+          if (response.ok) {
+            // Task added successfully
+            console.log('Task added successfully');
+            // Optionally, you can redirect the user or perform other actions here
+          } else {
+            // Handle error
+            console.error('Failed to add task');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
   
     return (
       <div className="container">
