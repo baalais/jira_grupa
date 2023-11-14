@@ -14,6 +14,7 @@ export default function Index() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/Add-task" element={<AddTask/>} />
+
       </Routes>
     </BrowserRouter>
   );
