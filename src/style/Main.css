@@ -4,7 +4,8 @@
 }
 
 body{
-    background: grey;
-}
 
+    display: flex;
+    background: dimgrey;
+}
 
