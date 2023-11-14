@@ -1,17 +1,17 @@
 body{
     justify-content: center;
     display: flex;
+    background-color:#E0F5F2;
 }
 .box{
     background-color:#8BD1F6;
-    width: 641px;
+    width: 500px;
     flex-wrap:wrap;
 }
 .top{
     width:100%;
     justify-content: center;
     display: flex;
-    margin-top:10px;
 }
 h1{
     color:#0A1F1C;
@@ -19,10 +19,13 @@ h1{
     font-size:30px;
 }
 .desc{
-width: 90%;
+width: 80%;
+padding-left:40px;
+margin-top:20px;
 }
 .bottom{
     width:100%;
+    margin-top:50px;
     display:flex;
     justify-content: space-around;
 }
