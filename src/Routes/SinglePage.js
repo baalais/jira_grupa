@@ -1,4 +1,4 @@
-import './Style/SinglePage.css';
+import '../Style/SinglePage.css';
 
 function SinglePage(){
     return(
