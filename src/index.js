@@ -6,6 +6,7 @@ import Login from './Routes/Login';
 import Register from './Routes/Register';
 import AddTask from './Routes/Add-task';
 
+
 export default function Index() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ export default function Index() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/Add-task" element={<AddTask/>} />
+
       </Routes>
     </BrowserRouter>
   );
