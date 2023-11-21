@@ -32,7 +32,7 @@ export default function Register(){
                             <button>Sign Up</button>
                         </form>
                         <div className='form-footer'>
-                            <p>Already have an account?<a href="#">Sign In!</a></p>
+                            <p>Already have an account? <a href="login">Sign In!</a></p>
                         </div>
                     </div>
                 </div>
