@@ -26,7 +26,7 @@ export default function Login(){
                         <form method='post' name='login_form' id='login_form'>
                             <input type='text' placeholder='Username'></input>
                             <input type='password' placeholder='Password'></input>
-                            <button>Sign In</button>
+                            <button id="sign_in_button">Sign In</button>
                         </form>
                         <div className='form-footer'>
                             <p>Already have an account? <a href="register">Sign In!</a></p>

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
-import { areAllValuesFalse, form_to_obj, get_form_object, is_valid_img_link } from '../functions';
+import { areAllValuesFalse, form_to_obj, get_form_object } from '../functions';
 
 
 
 export default function Register(){
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({username: false, password: false});
+    const [errors, setErrors] = useState({username: false, email: false, password: false});
 
     function registerHandler(){ 
         const obj = get_form_object('register_form');
+        var form_errors = errors;
+
+
     }
     
     return (
@@ -29,7 +32,7 @@ export default function Register(){
                             <input type='text' placeholder='Email'></input>
                             <input type='password' placeholder='Password'></input>
                             <input type='password' placeholder='Repeat password'></input>
-                            <button>Sign Up</button>
+                            <button onClick={registerHandler} id='sign_up_button'>Sign Up</button>
                         </form>
                         <div className='form-footer'>
                             <p>Already have an account? <a href="login">Sign In!</a></p>
