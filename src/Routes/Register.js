@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { areAllValuesFalse, form_to_obj, get_form_object } from '../functions';
+import axios from 'axios';
 
 
 
@@ -9,10 +10,28 @@ export default function Register(){
     const navigate = useNavigate();
     const [errors, setErrors] = useState({username: false, email: false, password: false});
 
-    function registerHandler(){ 
+    function registerHandler(){
         const obj = get_form_object('register_form');
         var form_errors = errors;
 
+        if(obj.password !== obj.re_password || obj.password === ''){
+            form_errors.password = true;
+        }
+
+        if(areAllValuesFalse(form_errors)){  // check if theres no errors
+
+            axios.post('register.php', form_to_obj('register_form')).then((res) => {
+                if(res.data.code === 0){
+                    form_errors.username = true;
+                    setErrors({...errors, ...form_errors});
+                }else{
+                    navigate('/');
+                }
+            });
+
+        }else{
+            setErrors({...errors, ...form_errors});
+        }
 
     }
     
