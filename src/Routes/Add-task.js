@@ -16,26 +16,49 @@ const AddTask = () => {
           user_id: user_id,
         };
       console.log(formData);
-        try {
-          const response = await fetch('http://localhost/a/db.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
+        // try {
+        //   const response = await fetch('http://localhost/a/db.php', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(formData),
+        //   });
       
-          if (response.ok) {
-            // Task added successfully
-            console.log('Task added successfully');
-            // Optionally, you can redirect the user or perform other actions here
-          } else {
-            // Handle error
-            console.error('Failed to add task');
-          }
-        } catch (error) {
-          console.error('Error:', error);
+        //   if (response.ok) {
+        //     // Task added successfully
+            
+        //     console.log(response);
+       
+        //     // Optionally, you can redirect the user or perform other actions here
+        //   } else {
+        //     // Handle error
+        //     console.error('Failed to add task');
+        //   }
+        // } catch (error) {
+        //   console.error('Error:', error);
+        // }
+        fetch('http://localhost/a/db.php', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // Parse the JSON response
+        } else {
+            throw new Error('Network response was not ok.');
         }
+    })
+    .then(data => {
+        console.log('Response:', data); // Log the parsed JSON data
+    })
+    .catch(error => {
+        console.error('Error:', error); // Log any errors that occurred during the fetch
+    });
       };
   
     return (

@@ -6,27 +6,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $due_date = $_POST['date'];
+    $
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "jira_grupa";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jira_grupa";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
+    $sql = "INSERT INTO `tasks` ( `user_id`, `title`, `description`, `due_date`, `status`) VALUES ('2', 'AAA', 'LKJ', '2023-11-22', 'LKJ');";
 
-$sql = "INSERT INTO `tasks`(`user_id`, `title`, `description`, `due_date`) VALUES ('user_id','title','description','dueDate')";
-
-
+    if ($conn->query($sql) === TRUE) {
+      echo "New record created successfully";
+    } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
    
-}else{
-    echo "nav";
 }
-
 ?>
