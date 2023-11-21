@@ -1,5 +1,6 @@
 import '../Style/SinglePage.css';
 
+
 function SinglePage(){
     return(
         <html>
