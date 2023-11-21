@@ -23,15 +23,13 @@ export default function Login(){
                         <div className='form-header'>
                             <h1>Sign In</h1>
                         </div>
-                        <form method='post' name='register_form' id='register_form'>
+                        <form method='post' name='login_form' id='login_form'>
                             <input type='text' placeholder='Username'></input>
-                            <input type='text' placeholder='Email'></input>
                             <input type='password' placeholder='Password'></input>
-                            <input type='password' placeholder='Repeat password'></input>
                             <button>Sign In</button>
                         </form>
                         <div className='form-footer'>
-                            <p>Already have an account?<a href="#">Sign In!</a></p>
+                            <p>Already have an account? <a href="register">Sign In!</a></p>
                         </div>
                     </div>
                 </div>
