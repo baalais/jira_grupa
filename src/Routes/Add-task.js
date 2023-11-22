@@ -7,58 +7,40 @@ const AddTask = () => {
         const title = e.target.title.value;
         const description = e.target.description.value;
         const dueDate = e.target.date.value;
-        const user_id = 1; // Assuming you have the user ID to pass
+        const user_id = 1;
+        const status = e.target.status.value; // Assuming you have the user ID to pass
       
         const formData = {
           title: title,
           description: description,
           date: dueDate,
           user_id: user_id,
+          status: status,
         };
       console.log(formData);
-        // try {
-        //   const response = await fetch('http://localhost/a/db.php', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(formData),
-        //   });
+        try {
+          const response = await fetch('http://localhost/a/db.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
       
-        //   if (response.ok) {
-        //     // Task added successfully
+          if (response.ok) {
+            // Task added successfully
             
-        //     console.log(response);
+            console.log(response.status);
        
-        //     // Optionally, you can redirect the user or perform other actions here
-        //   } else {
-        //     // Handle error
-        //     console.error('Failed to add task');
-        //   }
-        // } catch (error) {
-        //   console.error('Error:', error);
-        // }
-        fetch('http://localhost/a/db.php', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); // Parse the JSON response
-        } else {
-            throw new Error('Network response was not ok.');
+            // Optionally, you can redirect the user or perform other actions here
+          } else {
+            // Handle error
+            console.error('Failed to add task');
+          }
+        } catch (error) {
+          console.error('Error:', error);
         }
-    })
-    .then(data => {
-        console.log('Response:', data); // Log the parsed JSON data
-    })
-    .catch(error => {
-        console.error('Error:', error); // Log any errors that occurred during the fetch
-    });
+        
       };
   
     return (
@@ -73,7 +55,13 @@ const AddTask = () => {
   
           <label htmlFor="date">Date</label>
           <input type="date" id="date" name="date" className="form-control" required />
-  
+
+          <label htmlFor="status">Status</label>
+          <select name="status" id="status" className="form-control" required>
+            <option value="1">Pending</option>
+            <option value="2">In progress</option>
+          </select>
+
           <button type="submit">Add</button>
         </form>
       </div>
