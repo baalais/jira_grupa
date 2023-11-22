@@ -7,10 +7,12 @@ import axios from 'axios';
 
 
 export default function Register(){
+
     const navigate = useNavigate();
     const [errors, setErrors] = useState({username: false, email: false, password: false});
 
     function registerHandler(){
+
         const obj = get_form_object('register_form');
         var form_errors = errors;
 
@@ -46,15 +48,18 @@ export default function Register(){
                         <div className='form-header'>
                             <h1>Sign Up</h1>
                         </div>
-                        <form method='post' name='register_form' id='register_form'>
-                            <input type='text' placeholder='Username'></input>
-                            <input type='text' placeholder='Email'></input>
-                            <input type='password' placeholder='Password'></input>
-                            <input type='password' placeholder='Repeat password'></input>
+                        <form name='register_form' id='register_form'>
+                            <div className={(errors.username) ? 'input-error' : 'input'}>
+                                <input onChange={() => setErrors({...errors, username: false})} type='text' id='username' name='username' placeholder='Username' />
+                            </div>
+                            
+                            <input onChange={() => setErrors({...errors, email: false})} type='text' id='email' name='email' placeholder='Email'></input>
+                            <input onChange={() => setErrors({...errors, password: false})} type='password' id='password' name='password' placeholder='Password'></input>
+                            <input onChange={() => setErrors({...errors, re_password: false})} type='password' id='re_password' name='re_password' placeholder='Repeat password'></input>
                             <button onClick={registerHandler} id='sign_up_button'>Sign Up</button>
                         </form>
                         <div className='form-footer'>
-                            <p>Already have an account? <a href="login">Sign In!</a></p>
+                            <p>Already have an account? <a onClick= {() => {navigate('/login')}}>Sign In!</a></p>
                         </div>
                     </div>
                 </div>
