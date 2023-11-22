@@ -12,4 +12,6 @@ if($user->register($_POST['username'], $_POST['email'], $_POST['password'])){
     success('Account was created successfully!');
 }
 
+
+
 ?>

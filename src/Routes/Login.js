@@ -23,13 +23,13 @@ export default function Login(){
                         <div className='form-header'>
                             <h1>Sign In</h1>
                         </div>
-                        <form method='post' name='login_form' id='login_form'>
+                        <form name='login_form' id='login_form'>
                             <input type='text' placeholder='Username'></input>
                             <input type='password' placeholder='Password'></input>
                             <button id="sign_in_button">Sign In</button>
                         </form>
                         <div className='form-footer'>
-                            <p>Already have an account? <a href="register">Sign In!</a></p>
+                            <p>Already have an account? <a onClick={() => {navigate('/register')}}>Sign In!</a></p>
                         </div>
                     </div>
                 </div>
