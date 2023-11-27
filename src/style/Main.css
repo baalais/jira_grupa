@@ -36,11 +36,14 @@ li a:hover {
     background-color: #E0F5F2;
 }
   
-  
 
-
-    display: flex;
-    background: dimgrey;
-}
+.kvadrats {
+    width: 115%;
+    height: 109px;
+    background-color: grey; 
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+  }
 
 
