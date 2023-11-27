@@ -7,9 +7,15 @@ export default function App() {
   const navigate = useNavigate();
     return (
       <>
-      <Header />
+      <Header/>
        <div></div>
       </>
-
+      
     )
 }
+
+<body>
+
+<div class="kvadrats"></div>
+
+</body>
