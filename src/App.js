@@ -8,14 +8,18 @@ export default function App() {
     return (
       <>
       <Header/>
-       <div></div>
+      <div class="content">
+        <h2>My Projects</h2>
+        <p>Project 1</p>
+        <p>Project 2</p>
+
+        <h2>Helpful Links</h2>
+        <p>Link 1</p>
+        </div>
+      
       </>
       
     )
 }
 
-<body>
 
-<div class="kvadrats"></div>
-
-</body>
