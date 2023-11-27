@@ -33,20 +33,27 @@ export default function Register(){
     const registerHandler = async (event) => {
         event.preventDefault();
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+
         if (formData.username.trim().length === 0) {
-            console.log('Username is empty');
+            setErrors({ ...errors, username: 'Username field is empty!' });
         }else if(formData.email.trim().length === 0){
-            console.log('Email field is empty!');
+            setErrors({ ...errors, email: 'Email field is empty!' });
+        }else if (!emailRegex.test(formData.email)) {
+            setErrors({ ...errors, email: 'Invalid email format!' });
         }else if(formData.password.trim().length === 0){
-            console.log('Password field is empty!');
+            setErrors({ ...errors, password: 'Password field is empty!' });
+        }else if (!passwordRegex.test(formData.password)) {
+            setErrors({ ...errors, password: 'Password must be at least 8 characters long and contain at least 1 number and 1 capital letter!' }); 
         }else if(formData.re_password.trim().length === 0){
-            console.log('Password field is empty!');
+            setErrors({ ...errors, re_password: 'Password field is empty!' });
         }else if(formData.password !== formData.re_password){
-            console.log('Passwords do not match');
+            setErrors({ ...errors, re_password: 'Passwords do not match!' });
         }else{
         
-        
-        fetch('http://localhost/karlis/jira/api/tests.php', { method: 'POST', body: JSON.stringify(formData) })
+        //probably will need to change this api endpoint to work for other computers
+        fetch('http://localhost/jira_grupa/jira_grupa/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
             .then(function (response) {
               return response.text();
             })
@@ -68,10 +75,23 @@ export default function Register(){
                             <h1>Sign Up</h1>
                         </div>
                         <form name='register_form' id='register_form'>
-                            <input onChange={handleInputChange} type='text' id='username' name='username' placeholder='Username' />
-                            <input onChange={handleInputChange} type='text' id='email' name='email' placeholder='Email'></input>
-                            <input onChange={handleInputChange} type='password' id='password' name='password' placeholder='Password'></input>
-                            <input onChange={handleInputChange} type='password' id='re_password' name='re_password' placeholder='Repeat password'></input>
+                            <div className={(errors.username) ? 'input-error' : 'input'}>
+                                <input onChange={handleInputChange} type='text' id='username' name='username' placeholder='Username' />
+                                {errors.username && <p className="error-message">{errors.username}</p>}
+                            </div>
+                            <div className={(errors.email) ? 'input-error' : 'input'}>
+                                <input onChange={handleInputChange} type='text' id='email' name='email' placeholder='Email' />
+                                {errors.email && <p className="error-message">{errors.email}</p>}
+                            </div>
+                            <div className={(errors.password) ? 'input-error' : 'input'}>
+                                <input onChange={handleInputChange} type='password' id='password' name='password' placeholder='Password' />
+                                {errors.password && <p className="error-message">{errors.password}</p>}
+                            </div>
+                            <div className={(errors.re_password) ? 'input-error' : 'input'}>
+                                <input onChange={handleInputChange} type='password' id='re_password' name='re_password' placeholder='Repeat password' />
+                                {errors.re_password && <p className="error-message">{errors.re_password}</p>}
+                            </div>
+                            
                             <button onClick={(event) => registerHandler(event)} id='sign_up_button'>Sign Up</button>
                         </form>
                         <div className='form-footer'>
