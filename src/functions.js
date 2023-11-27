@@ -10,6 +10,10 @@ function object_to_urlsearchparams(obj) {
 	return params;
 }
 
+function hasSpecialCharacters(input) {
+	const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+	return regex.test(input);
+}
 
 // html form, to javascript object
 function get_form_object(formId) {
@@ -65,4 +69,5 @@ function areAllValuesFalse(obj) {
 }
   
 
-export {object_to_urlsearchparams, get_form_object, form_to_obj, is_valid_img_link, areAllValuesFalse};
+export {object_to_urlsearchparams, get_form_object, form_to_obj, is_valid_img_link, areAllValuesFalse, hasSpecialCharacters};
+
