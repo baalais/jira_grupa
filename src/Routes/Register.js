@@ -58,7 +58,7 @@ export default function Register(){
               return response.text();
             })
             .then(function (body) {
-              console.log(body);
+              console.log(body); 
             });
         }
     };
