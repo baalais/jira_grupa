@@ -1,38 +1,29 @@
 <?php
-include './headers.php';
-include './db.php';
+$servername = "localhost";
+$username = "root"; // Replace with your MySQL username
+$password = ""; // Replace with your MySQL password
+$dbname = "jira_grupa"; // Replace with your database name
 
-class Single {
-    private $conn;
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    public function __construct($db) {
-        $this->conn = $db;
-    }
-
-    public function getTaskById($id) {
-        $stmt = $this->conn->prepare('SELECT tasks.*, users.username FROM tasks 
-                                     INNER JOIN users ON tasks.user_id = users.id 
-                                     WHERE tasks.id = ?');
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $task = $result->fetch_assoc();
-        $stmt->close();
-        return $task;
-    }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-
-// Instantiate the DB class
-$sql = new DB();
-
-// Instantiate the Single class and pass the database connection
-$api = new Single($sql->getConnection());
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $task = $api->getTaskById($id);
+        $stmt = $conn->prepare('SELECT tasks.*, users.username FROM tasks 
+                                     INNER JOIN users ON tasks.user_id = users.id 
+                                     WHERE tasks.id = ?');
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $task = $result->fetch_assoc();
+        $stmt->close();
 
         if ($task) {
             // Set proper headers for a JSON response
@@ -47,4 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(['message' => 'No task ID provided']);
     }
 }
+
+$conn->close();
 ?>
