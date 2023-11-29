@@ -8,14 +8,22 @@ export default function App() {
     return (
       <>
       <Header/>
-       <div></div>
+      <div class="mainContainer">
+        <div class="text">My project</div>
+        <div class="square"></div>
+</div>
+   
+      <div class="mainContainer">
+        <div class="text">Helpful</div>
+        <div class="square"></div>
+        {/* <div class="square" onclick="goToPage('./Login.css')"></div> */}
+
+      </div>
+   
+      
       </>
       
     )
 }
 
-<body>
 
-<div class="kvadrats"></div>
-
-</body>
