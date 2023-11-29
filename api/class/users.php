@@ -29,6 +29,22 @@ class Users{
         return 1;
     }
 
+    function login($username, $password){
+        $this->sql->where('username', $username);
+        $this->sql->where('password', $this->hash_pass($password));
+        
+
+        $usrID = $this->sql->getValue('users', 'id');
+        if($usrID == '') return false;
+        return $usrID;
+    }
+
+    function logged_in(){
+        @session_start();
+        if(!isset($_SESSION['jira']) || !isset($_SESSION['jira']['login'])) return false;
+        return true;
+    }
+
 }
 
 
