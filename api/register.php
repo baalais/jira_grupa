@@ -14,12 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // print_r($data);
     echo json_encode($data);
     // echo 'tests';
-    // if($user->check_username($data['username']) >= 1){
-    //     error('Profile already exists!');
-    // }
-    // if($user->register($data['username'], $data['email'], $data['password'])){
-    //     success('Account was created successfully!');
-    // }
+
     if ($user->check_username($data['username']) >= 1) {
         $response = [
             'status' => 'error',

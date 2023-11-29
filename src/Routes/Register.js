@@ -17,6 +17,9 @@ export default function Register(){
         re_password: '',
     });
 
+    const [status, setStatus] = useState(null);
+    const [message, setMessage] = useState(null);
+
     const [errors, setErrors] = useState({
         username: false,
         email: false,
@@ -53,10 +56,14 @@ export default function Register(){
         }else{
         
         //probably will need to change this api endpoint to work for other computers
-        fetch('http://localhost/jira_grupa/jira_grupa/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
+        //http://localhost/jira_grupa/jira_grupa/api/register.php   <----- This is link to use at home
+        //http://localhost/karlis/jira/api/register.php   <-------- This is link to use at school
+        fetch('http://localhost/karlis/jira/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
+
             .then(function (response) {
               return response.text();
             })
+
             .then(function (body) {
               console.log(body); 
             });
@@ -90,6 +97,7 @@ export default function Register(){
                             <div className={(errors.re_password) ? 'input-error' : 'input'}>
                                 <input onChange={handleInputChange} type='password' id='re_password' name='re_password' placeholder='Repeat password' />
                                 {errors.re_password && <p className="error-message">{errors.re_password}</p>}
+                                
                             </div>
                             
                             <button onClick={(event) => registerHandler(event)} id='sign_up_button'>Sign Up</button>
