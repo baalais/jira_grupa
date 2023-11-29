@@ -8,14 +8,18 @@ export default function App() {
     return (
       <>
       <Header/>
-      <div class="content">
-        <h2>My Projects</h2>
-        <p>Project 1</p>
-        <p>Project 2</p>
+      <div class="mainContainer">
+        <div class="text">My project</div>
+        <div class="square"></div>
+</div>
+   
+      <div class="mainContainer">
+        <div class="text">Helpful</div>
+        <div class="square"></div>
+        {/* <div class="square" onclick="goToPage('./Login.css')"></div> */}
 
-        <h2>Helpful Links</h2>
-        <p>Link 1</p>
-        </div>
+      </div>
+   
       
       </>
       
