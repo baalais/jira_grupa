@@ -30,7 +30,6 @@ body {
 .content {
    padding: 70px;
 }
-
 .mainContainer {
     position: relative;
     display: flex;
@@ -62,4 +61,5 @@ body {
     text-align: center;
     
 }
+
 
