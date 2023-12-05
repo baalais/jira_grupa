@@ -31,6 +31,7 @@ body {
    padding: 70px;
 }
 
+
 .base{
     display: flex;
     justify-content: center;
@@ -86,4 +87,5 @@ body {
     text-align: center;
     
 }
+
 
