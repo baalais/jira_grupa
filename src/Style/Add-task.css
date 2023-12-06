@@ -4,7 +4,8 @@ body {
   }
   
   .container {
-    max-width: 600px;
+    width: clamp(300px, 100%, 600px);
+    height:auto;
     margin: 30px auto;
     background-color: #8BD1F6;
     padding: 30px;
@@ -34,4 +35,7 @@ body {
   
   .poga:hover {
     background-color: #D9DCF2;
+  }
+  .todo-form{
+    width:100%;
   }
