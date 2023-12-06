@@ -83,7 +83,7 @@ return (
         <option value="2">In progress</option>
       </select>
 
-      <button type="submit">Add</button>
+      <button type="submit" class="poga">Add</button>
     </form>
   </div>
 );
