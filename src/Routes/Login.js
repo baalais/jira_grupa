@@ -37,13 +37,22 @@ export default function Login(){
         //http://localhost/karlis/jira/api/login.php   <-------- This is link to use at school
         fetch('http://localhost/karlis/jira/api/login.php', { method: 'POST', body: JSON.stringify(formData) })
 
-            .then(function (response) {
-              return response.text();
-            })
-
-            .then(function (body) {
-              console.log(body); 
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                // Success
+                console.log(data.message);
+                navigate('/');
+            } else {
+                // Error
+                console.error(data.message);
+                // Handle the error, show a message, etc.
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle other errors, if any
+        });
         }
     };
     

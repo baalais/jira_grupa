@@ -45,6 +45,13 @@ class Users{
         return true;
     }
 
+    function get_public_userinfo(){
+        if(!$this->logged_in()) return false;
+        $this->sql->where('id', $_SESSION['jira']['login']);
+        return $this->sql->get('users', 1, ['username'])[0];
+        
+    }
+
 }
 
 
