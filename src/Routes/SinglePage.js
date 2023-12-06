@@ -1,22 +1,37 @@
-import './Style/SinglePage.css';
+import React, { useState, useEffect } from 'react';
 
-function SinglePage(){
-    return(
-        <html>
-            <div class="box">
-                <div class="top">
-                    <h1>Task Name</h1>
-                </div>
-                <div class = "desc">
-                    <p>Description:</p>
-                </div>
-                <div class = "bottom">
-                    <p>Date:</p>
-                    <p>IN PROGRESS</p>
-                </div>
-            </div>
+const SinglePage = () => {
+  const [data, setData] = useState(null);
 
-        </html>
-    )
+  const fetchData = async () => {
+    try {
+        const response = await fetch('singlepage.php?id=1');
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error(error);
+      }
+      
 }
+
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+
+  return (
+    <div>
+      {data ? (
+        <div>
+          <h1>{data.title}</h1>
+          <p>{data.body}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
+
 export default SinglePage;
