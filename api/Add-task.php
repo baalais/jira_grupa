@@ -10,16 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $due_date = $_POST['date'];
-    $user_id = $_POST['user_id']; // Assuming you pass user_id from frontend
+    $user_id = $_POST['user_id'];
+    $status = $_POST['status']; // Assuming you pass user_id from frontend
 
     $sql = "INSERT INTO tasks (user_id, title, description, due_date, status) 
-            VALUES (:user_id, :title, :description, :due_date, 'Pending')"; // Assuming your table name is 'tasks'
+            VALUES (:user_id, :title, :description, :due_date, :status)"; // Assuming your table name is 'tasks'
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $user_id);
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':due_date', $due_date);
+    $stmt->bindParam(':status', $status);
 
     try {
         $stmt->execute();
