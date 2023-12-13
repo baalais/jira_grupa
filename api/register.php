@@ -2,7 +2,13 @@
 include './db.php';
 include './functions.php';
 include './class/users.php';
-include './cors.php';
+
+
+header("Access-Control-Allow-Origin: http://localhost:3000");
+header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
+header("Access-Control-Allow-Credentials: true"); 
+header("Access-Control-Allow-Headers: Content-Type");
+
 $user = new Users($GLOBALS['sql']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

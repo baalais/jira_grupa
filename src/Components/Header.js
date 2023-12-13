@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+
+const Header = (props) => {
   const navigate = useNavigate();
 
   const navigateToAddTask = () => {
@@ -25,6 +25,8 @@ const Header = () => {
         <a href="#profile">Profile</a>
         <a onClick={navigateToLogin}>Sign In</a>
         <a onClick={navigateToSignOut}>Sign Out</a>
+        <h1>Welcome {props.username}</h1>
+        <p>{props.email}</p>
       </div>
     </header>
 

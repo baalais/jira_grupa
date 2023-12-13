@@ -7,6 +7,7 @@ import Login from './Routes/Login';
 import Register from './Routes/Register';
 import AddTask from './Routes/Add-task';
 import SinglePage from './Routes/SinglePage';
+import SignOut from './Routes/SignOut';
 
 export default function Index() {
 
@@ -33,6 +34,7 @@ export default function Index() {
           <Route path="/register" element={<Register />} />
           <Route path="/Add-task" element={<AddTask/>} />
           <Route path="/SinglePage" element={<SinglePage/>} />
+          <Route path="/signOut" element={<SignOut/>} />
 
       </Routes>
     </BrowserRouter>
