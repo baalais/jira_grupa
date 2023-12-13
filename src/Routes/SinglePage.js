@@ -1,36 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const SinglePage = () => {
-  const [data, setData] = useState(null);
+  const [taskData, setTaskData] = useState(null);
 
-  const fetchData = async () => {
-    try {
-        const response = await fetch('singlepage.php?id=1');
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.error(error);
-      }
-      
-}
-
-  
   useEffect(() => {
+    // Fetch task data from the PHP backend
+    const fetchData = async () => {
+      try {
+        const taskId = 1; // replace with the actual task ID
+        const response = await fetch(`http://localhost/api/singlepage.php?id=${taskId}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          // Update the task data in state
+          setTaskData(data.data);
+        } else {
+          console.error("Error fetching data:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call the fetchData function when the component mounts
     fetchData();
-  }, []);
-  
+  }, []); // The empty dependency array ensures that the effect runs once when the component mounts
 
   return (
-    <div>
-      {data ? (
+    <main>
+      {taskData && (
         <div>
-          <h1>{data.title}</h1>
-          <p>{data.body}</p>
+          <h2>{taskData.title}</h2>
+          <p>{taskData.description}</p>
+          <p>Due Date: {taskData.due_date}</p>
+          <p>Status: {taskData.status}</p>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
-    </div>
+    </main>
   );
 };
 
