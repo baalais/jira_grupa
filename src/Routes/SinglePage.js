@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const SinglePage = ({ taskId }) => {
-  const [task, setTask] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const SinglePage = () => {
+  const [taskData, setTaskData] = useState(null);
 
   useEffect(() => {
-    const fetchTask = async () => {
+    // Fetch task data from the PHP backend
+    const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/singlepage.php?id=${taskId}`);
+        const taskId = 1; // replace with the actual task ID
+        const response = await fetch(`http://localhost/api/singlepage.php?id=${taskId}`);
         const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.message || 'Failed to fetch task');
+        if (response.ok) {
+          // Update the task data in state
+          setTaskData(data.data);
+        } else {
+          console.error("Error fetching data:", data.message);
         }
-
-        setTask(data);
-        setError(null);
       } catch (error) {
-        setError(`Failed to fetch task: ${error.message}`);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchTask();
-  }, [taskId]);
+    // Call the fetchData function when the component mounts
+    fetchData();
+  }, []); // The empty dependency array ensures that the effect runs once when the component mounts
 
   return (
-    <div className="container">
-      <h1>Task Details</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {task && (
+    <main>
+      {taskData && (
         <div>
-          <p>ID: {task.id}</p>
-          <p>Title: {task.title}</p>
-          <p>Description: {task.description}</p>
-          <p>Due Date: {task.due_date}</p>
-          <p>User ID: {task.user_id}</p>
-          <p>Status: {task.status}</p>
+          <h2>{taskData.title}</h2>
+          <p>{taskData.description}</p>
+          <p>Due Date: {taskData.due_date}</p>
+          <p>Status: {taskData.status}</p>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 
