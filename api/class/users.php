@@ -40,17 +40,35 @@ class Users{
     }
 
     function logged_in(){
-        @session_start();
-        if(!isset($_SESSION['jira']) || !isset($_SESSION['jira']['login'])) return false;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if(!isset($_SESSION)) {
+            return false;
+        }
+        
         return true;
     }
-
-    function get_public_userinfo(){
-        if(!$this->logged_in()) return false;
-        $this->sql->where('id', $_SESSION['jira']['login']);
-        return $this->sql->get('users', 1, ['username'])[0];
+    function get_public_userinfo() {
+        if (!$this->logged_in() || !isset($_SESSION['userID'])) {
+            // Log an error message or return an informative response
+            error_log("Error: User not logged in or userID not set");
+            return false;
+        }
+    
+        $this->sql->where('id', $_SESSION['userID']);
+        $userInfo = $this->sql->get('users', 1, ['username', 'email']);
         
+        if (empty($userInfo)) {
+            // Log an error message or return an informative response
+            error_log("Error: No user information found for userID {$_SESSION['userID']}");
+            return false;
+        }
+    
+        return $userInfo[0];
     }
+    
 
 }
 

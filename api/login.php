@@ -3,6 +3,7 @@ include './db.php';
 include './functions.php';
 include './class/users.php';
 include './cors.php';
+
 $user = new Users($GLOBALS['sql']);
 
 
@@ -19,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     session_start();
-    $_SESSION['jira']['login'] = $usrID;
+    $_SESSION['userID'] = $usrID;
+    $_SESSION['username'] = $data['username'];
+
     respond(true, 'Logged in successfully');
 }
 

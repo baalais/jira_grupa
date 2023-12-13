@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
-import { areAllValuesFalse, form_to_obj, get_form_object } from '../functions';
-import axios from 'axios';
-
 
 
 export default function Register(){
