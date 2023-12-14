@@ -6,33 +6,34 @@ import axios from 'axios';
 
 export default function App() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(null);
+
+
   const navigateToAddTask = () => {
     navigate('/addTask');
   };
-
-  const [userInfo, setUserInfo] = useState({username: 'Guest', email: ''});
+  
+  const checkLoginStatus = async () => {
+    try {
+      //http://localhost/jira_grupa/api/check_login.php <----- Link to use at home
+      //http://localhost/karlis/jira/api/check_login.php <---- Link to use at school
+      const response = await axios.get('http://localhost/jira_grupa/jira_grupa/api/check_login.php');
+        const data = await response.data;
+        setIsLoggedIn(data.isLoggedIn);
+        setUsername(data.username);
+        return data.isLoggedIn;  // Return the login status directly
+    } catch (error) {
+        console.error('Error:', error);
+    }
+  };
 
   useEffect(() => {
-    axios.post('http://localhost/karlis/jira/api/check_login.php')
-        .then((res) => {
-            console.log(res.data); // Log the entire response
-            if (res.data.code === 0) {
-                navigate('/login');
-            } else if (res.data.reason) {
-                if (res.data.reason === false) {
-                    console.error("Error: User information not found");
-                    // Handle the case where user information is not found
-                } else {
-                    console.log(res.data.reason); // Log the reason property
-                    setUserInfo(res.data.reason);
-                }
-            } else {
-                console.error("Unexpected API response format:", res.data);
-            }
-        })
-        .catch((error) => {
-            console.error("Error fetching data from the API:", error);
-        });
+    checkLoginStatus().then(loggedIn => {
+        if (!loggedIn) {  // Use the returned value
+            navigate('/login');
+        }
+    });
 }, []);
 
 
@@ -42,7 +43,7 @@ export default function App() {
     return (
       <>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-      <Header username={userInfo.username} email={userInfo.email}/>
+      <Header username={username}/>
       <div className="base">
         <div className="mainContainer">
           <p>My project</p>

@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
+export default function SignOut() {
+    const navigate = useNavigate();
 
-export default function Register(){
+    useEffect(() => {
+        axios.post('http://localhost/jira_grupa/jira_grupa/api/logout.php')
+            .then(response => {
+                if (response.data.status === 'success') {
+                    // Redirect or perform any other action after successful sign out
+                    navigate('/login');
+                } else {
+                    console.error('Error occurred during sign out');
+                }
+            })
+            .catch(error => {
+                console.error('Axios request failed:', error);
+            });
+    }, [navigate]);
 
-    axios.post('http://localhost/karlis/jira/api/logout.php')
-        .then(response => {
-            if (response.data.status === 'success') {
-                // Redirect or perform any other action after successful sign out
-                window.location.href = '/login'; // Replace with your desired redirect URL
-            } else {
-                console.error('Error occurred during sign out');
-            }
-        })
-        .catch(error => {
-            console.error('Axios request failed:', error);
-        });
-        
+    // Render nothing
+    return null;
 }
-
-
-
-    
