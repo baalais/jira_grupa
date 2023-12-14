@@ -1,44 +1,43 @@
 <?php
 include './db.php';
 include './functions.php';
-include './class/users.php';
+include './cors.php';
 
+$database = new Database();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
-header("Access-Control-Allow-Credentials: true"); 
-header("Access-Control-Allow-Headers: Content-Type");
-
-$user = new Users($GLOBALS['sql']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    // print_r($data);
-    echo json_encode($data);
-    // echo 'tests';
+    $userData = json_decode(file_get_contents('php://input'), true);
+    
+    $addUsername = !empty($userData['username']) ? $userData['username'] : null;
+    $addEmail = !empty($userData['email']) ? $userData['email'] : null;
+    $addPassword = !empty($userData['password']) ? $userData['password'] : null;
 
-    if ($user->check_username($data['username']) >= 1) {
-        $response = [
-            'status' => 'error',
-            'message' => 'Profile already exists!'
-        ];
-    }
-    else {
-        if ($user->register($data['username'], $data['email'], $data['password'])) {
-            $response = [
-                'status' => 'success',
-                'message' => 'Account was created successfully!'
-            ];
+    if (empty($addUsername) || empty($addPassword)) {
+        echo json_encode(['status' => 'error', 'message' => 'Please provide all required information.']);
+    } else {
+        // Check if the username is already in use
+        $query = "SELECT * FROM `users` WHERE `username` = '$addUsername'";
+        $result = $database->select($query);
+
+        if ($result && count($result) > 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Username already in use.']);
         } else {
-            $response = [
-                'status' => 'error',
-                'message' => 'Error creating account. Please try again later.'
-            ];
+            // Hash the password
+            $hashedPassword = password_hash($addPassword, PASSWORD_BCRYPT);
+
+            // Insert the user into the database
+            $insert = $database->insert("INSERT INTO `users` (`username`, `email`, `password`) VALUES ('$addUsername', '$addEmail', '$hashedPassword')");
+
+            if ($insert) {
+                echo json_encode(['status' => 'success', 'message' => 'User registered successfully']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error registering user']);
+            }
         }
     }
-
-    echo json_encode(['registrationData' => $data, 'response' => $response]);
-
-
+}else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 }
 
+?>

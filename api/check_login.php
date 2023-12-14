@@ -1,16 +1,13 @@
 <?php
+session_start();
 include './cors.php';
-include './db.php';
-include './functions.php';
-include './class/users.php';
 
-$user = new Users($GLOBALS['sql']);
+print_r($_SESSION);
 
-
-if(!$user->logged_in()){
-    error('Login is required!');
+if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+    echo json_encode(['isLoggedIn' => false]);
+} else {
+    echo json_encode(['isLoggedIn' => true, 'username' => $_SESSION['username']]);
 }
-
-success($user->get_public_userinfo());
 
 ?>

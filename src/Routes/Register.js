@@ -55,16 +55,36 @@ export default function Register(){
         //probably will need to change this api endpoint to work for other computers
         //http://localhost/jira_grupa/jira_grupa/api/register.php   <----- This is link to use at home
         //http://localhost/karlis/jira/api/register.php   <-------- This is link to use at school
-        fetch('http://localhost/karlis/jira/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
-
-            .then(function (response) {
-              return response.text();
-            })
-
-            .then(function (body) {
-              console.log(body); 
-            });
-        }
+        fetch('http://localhost/jira_grupa/jira_grupa/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();  // parse the response as JSON
+        })
+        .then(data => {
+            setStatus(data.status);
+            setMessage(data.message);  // set the message from the server response
+            if (data.status === 'success') {
+                // Start countdown
+                let countdown = 5;
+                const timerId = setInterval(() => {
+                    countdown--;
+                    setMessage(`User registered successfully. Redirecting in ${countdown} seconds...`);
+                    if (countdown <= 0) {
+                        clearInterval(timerId);
+                        navigate('/login');
+                    }
+                }, 1000);
+            } else if (data.status === 'error') {
+                setErrors({ ...errors, username: data.message });
+            }
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            setErrors({ ...errors, username: 'There has been a problem with your fetch operation.' });
+        });
+        };
     };
     
     return (
@@ -94,6 +114,8 @@ export default function Register(){
                             <div className={(errors.re_password) ? 'input-error' : 'input'}>
                                 <input onChange={handleInputChange} type='password' id='re_password' name='re_password' placeholder='Repeat password' />
                                 {errors.re_password && <p className="error-message">{errors.re_password}</p>}
+                                {message && <p className={status === 'success' ? "success-message" : "error-message"}>{message}</p>}
+
                                 
                             </div>
                             

@@ -23,13 +23,14 @@ const Header = (props) => {
         <a >Home</a>
         <a onClick={navigateToAddTask} >Tasks</a>
         <a href="#profile">Profile</a>
-        <a onClick={navigateToLogin}>Sign In</a>
-        <a onClick={navigateToSignOut}>Sign Out</a>
+        {props.username ? (
+          <a onClick={navigateToSignOut}>Sign Out</a>
+        ) : (
+          <a onClick={navigateToLogin}>Sign In</a>
+        )}
         <h1>Welcome {props.username}</h1>
-        <p>{props.email}</p>
       </div>
     </header>
-
   );
 };
 

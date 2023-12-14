@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
-import { areAllValuesFalse, form_to_obj, get_form_object, is_valid_img_link } from '../functions';
+
 
 export default function Login(){
 
@@ -22,37 +22,42 @@ export default function Login(){
         setFormData({ ...formData, [name]: value });
         setErrors({ ...errors, [name]: false });
     };
-
+    
     const loginHandler = async (event) => {
         event.preventDefault();
-
+        
         if (formData.username.trim().length === 0) {
             setErrors({ ...errors, username: 'Username field is empty!' });
-        }else if(formData.password.trim().length === 0){
+        } else if(formData.password.trim().length === 0){
             setErrors({ ...errors, password: 'Password field is empty!' });
-        }else{
-        
-        //probably will need to change this api endpoint to work for other computers
-        //http://localhost/jira_grupa/jira_grupa/api/login.php   <----- This is link to use at home
-        //http://localhost/karlis/jira/api/login.php   <-------- This is link to use at school
-        fetch('http://localhost/karlis/jira/api/login.php', { method: 'POST', body: JSON.stringify(formData) })
-
-        .then(response => response.json())
-        .then(data => {
-            if (data.status) {
-                // Success
-                console.log(data.message);
-                navigate('/');
-            } else {
-                // Error
-                console.error(data.message);
-                // Handle the error, show a message, etc.
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle other errors, if any
-        });
+        } else {
+            //probably will need to change this api endpoint to work for other computers
+            //http://localhost/jira_grupa/jira_grupa/api/login.php   <----- This is link to use at home
+            //http://localhost/karlis/jira/api/login.php   <-------- This is link to use at school
+            fetch('http://localhost/jira_grupa/jira_grupa/api/login.php', { 
+                method: 'POST', 
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Success
+                    console.log(data.message);
+                    console.log(data.status_session);
+                    navigate('/');
+                } else if (data.status === 'error') {
+                    // Error
+                    console.error(data.errors);
+                    setErrors(data.errors);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle other errors, if any
+            });
         }
     };
     

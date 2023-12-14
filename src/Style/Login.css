@@ -134,8 +134,9 @@ input{
 }
 
 a{
-    color: black;
+    color: rgb(13, 55, 94);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .input{
@@ -164,5 +165,37 @@ a{
     }
 }
 
+
+
+
+@media only screen and (max-width: 600px) {
+    .split-left{
+        display: none;
+    }
+
+    .split-right{
+        min-width: 100%;
+    }
+
+    input{
+        width: 90%;
+        margin: 20px;
+    }
+
+    #sign_in_button, #sign_up_button{
+        height: 4vh;
+        width: 30vw;
+    }
+
+    p{
+        padding: 20px;
+    }
+
+    .background-secondary{
+        min-width: 100vw;
+    }
+    
+
+  }
 
 
