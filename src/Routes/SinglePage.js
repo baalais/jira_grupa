@@ -1,43 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../Style/SinglePage.css';
 
+// Define the TaskDetails component
 const SinglePage = () => {
-  const [taskData, setTaskData] = useState(null);
+    const [task, setTask] = useState(null);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch task data from the PHP backend
-    const fetchData = async () => {
-      try {
-        const taskId = 1; // replace with the actual task ID
-        const response = await fetch(`http://localhost/api/singlepage.php?id=${taskId}`);
-        const data = await response.json();
+    // Fetch task data when the component mounts
+    useEffect(() => {
+        const fetchTask = async () => {
+            try {
+                const response = await fetch('http://localhost/justs/jira_grupa/api/singlepage.php');
+                const data = await response.json();
 
-        if (response.ok) {
-          // Update the task data in state
-          setTaskData(data.data);
-        } else {
-          console.error("Error fetching data:", data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+                if (response.ok) {
+                    setTask(data);
+                } else {
+                    setError(`Error: ${data.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                setError(`Error: ${error.message}`);
+            }
+        };
 
-    // Call the fetchData function when the component mounts
-    fetchData();
-  }, []); // The empty dependency array ensures that the effect runs once when the component mounts
+        fetchTask();
+    }, []);
 
-  return (
-    <main>
-      {taskData && (
-        <div>
-          <h2>{taskData.title}</h2>
-          <p>{taskData.description}</p>
-          <p>Due Date: {taskData.due_date}</p>
-          <p>Status: {taskData.status}</p>
+    // Render the component with dynamic data
+    return (
+        <div className="box">
+            <div className="top">
+                <h1>{task?.title}</h1>
+            </div>
+            <div className="desc">
+                <p>{task?.description}</p>
+            </div>
+            <div className="bottom">
+                <p>Due Date: {task?.due_date}</p>
+                <p>Status: {task?.status}</p>
+            </div>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
-      )}
-    </main>
-  );
+    );
 };
 
 export default SinglePage;
