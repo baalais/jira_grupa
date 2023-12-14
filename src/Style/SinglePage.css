@@ -1,34 +1,56 @@
-body{
+/* src/Style/SinglePage.css */
+
+body {
+    display: flex;
     justify-content: center;
-    background-color:#E0F5F2;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #E0F5F2;
 }
-.box{
-    background-color:#8BD1F6;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    background-color: #8BD1F6;
     width: 500px;
-    flex-wrap:wrap;
+    max-width: 100%; /* Ensure it doesn't exceed the screen width */
+    flex-wrap: wrap;
+    padding: 20px; /* Add some padding for better spacing */
 }
-.top{
-    width:100%;
+
+.top {
+    width: 100%;
     justify-content: center;
     display: flex;
 }
-h1{
-    color:#0A1F1C;
+
+h1 {
+    color: #0A1F1C;
     font-weight: bold;
-    font-size:30px;
+    font-size: 30px;
 }
-.desc{
-width: 80%;
-padding-left:40px;
-margin-top:20px;
+
+.desc {
+    width: 100%; /* Adjust the width to full width */
+    padding-left: 20px; /* Adjust padding */
+    margin-top: 20px;
 }
-.bottom{
-    width:100%;
-    margin-top:50px;
-    display:flex;
-    justify-content: space-around;
+
+.bottom {
+    width: 100%;
+    margin-top: 20px; /* Adjust margin */
+    display: flex;
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center items horizontally on small screens */
 }
-p{
-    color:#0A1F1C;
-    font-size:20px;
+
+p {
+    color: #0A1F1C;
+    font-size: 20px;
 }
