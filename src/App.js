@@ -14,27 +14,29 @@ export default function App() {
     navigate('/addTask');
   };
   
-  const checkLoginStatus = async () => {
-    try {
-      //http://localhost/jira_grupa/api/check_login.php <----- Link to use at home
-      //http://localhost/karlis/jira/api/check_login.php <---- Link to use at school
-      const response = await axios.get('http://localhost/jira_grupa/jira_grupa/api/check_login.php');
-        const data = await response.data;
-        setIsLoggedIn(data.isLoggedIn);
-        setUsername(data.username);
-        return data.isLoggedIn;  // Return the login status directly
-    } catch (error) {
-        console.error('Error:', error);
-    }
-  };
 
-  useEffect(() => {
-    checkLoginStatus().then(loggedIn => {
-        if (!loggedIn) {  // Use the returned value
-            navigate('/login');
-        }
-    });
-}, []);
+
+//   const checkLoginStatus = async () => {
+//     try {
+//       //http://localhost/jira_grupa/api/check_login.php <----- Link to use at home
+//       //http://localhost/karlis/jira/api/check_login.php <---- Link to use at school
+//       const response = await axios.get('http://localhost/jira_grupa/jira_grupa/api/check_login.php');
+//         const data = await response.data;
+//         setIsLoggedIn(data.isLoggedIn);
+//         setUsername(data.username);
+//         return data.isLoggedIn;  // Return the login status directly
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     checkLoginStatus().then(loggedIn => {
+//         if (!loggedIn) {  // Use the returned value
+//             navigate('/login');
+//         }
+//     });
+// }, []);
 
 
 
