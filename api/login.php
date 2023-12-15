@@ -1,7 +1,5 @@
 <?php
 
-session_start(); 
-
 include './db.php';
 include './functions.php';
 include './cors.php';
@@ -33,12 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (password_verify($password, $hashedPassword)) {
                 // Authentication succeeded
-                $_SESSION['username'] = $username;
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['user_logged_in'] = true;
+                $token = generateToken();
+                $userId = $user['id'];
+                $updateTokenQuery = "UPDATE `users` SET `token` = '$token' WHERE `id` = '$userId'";
+                $database->update($updateTokenQuery);
 
-                echo json_encode(['status' => 'success', 'message' => 'Login successful', 'status_session' => $_SESSION['user_logged_in']]);
+                // Set the token as a cookie
+                setcookie('token', $token, time() + (86400 * 30), "/"); // 86400 seconds = 1 day
+
+                echo json_encode(['status' => 'success', 'message' => 'Login successful', 'token' => $token]);
             } else {
                 $errors['password'] = "Invalid password.";
             }
@@ -54,3 +55,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo "Invalid request.";
 }
+?>
