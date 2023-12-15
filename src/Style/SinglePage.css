@@ -4,53 +4,79 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100%;
     margin: 0;
     background-color: #E0F5F2;
+}
+
+#root {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    max-width: 800px; 
+    width: 100%;
+    margin: 0 auto;
+    height:100%;
+    flex-grow: 1;
 }
+
+
+
+
 
 .box {
     background-color: #8BD1F6;
-    width: 500px;
-    max-width: 100%; /* Ensure it doesn't exceed the screen width */
-    flex-wrap: wrap;
-    padding: 20px; /* Add some padding for better spacing */
-}
-
-.top {
-    width: 100%;
-    justify-content: center;
+    width: 95%; /* Adjust width to leave some space on each side */
+    max-width: 800px; /* Set a maximum width to prevent overfilling */
+    margin: 0 auto; /* Center the box */
+    height: auto; /* Allow the box to adjust its height based on content */
+    max-height: 500px; /* Set a maximum height to prevent excessive growth */
+    padding: 20px; 
+    box-sizing: border-box; 
+    text-align: center;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 h1 {
     color: #0A1F1C;
     font-weight: bold;
     font-size: 30px;
+    margin: 0; /* Reset margin to prevent spacing issues */
 }
 
 .desc {
-    width: 100%; /* Adjust the width to full width */
-    padding-left: 20px; /* Adjust padding */
-    margin-top: 20px;
+    padding: 20px; /* Adjust padding for better spacing */
+    width: 100%; /* Ensure full width */
+    word-wrap: break-word;
 }
 
 .bottom {
-    width: 100%;
-    margin-top: 20px; /* Adjust margin */
+    margin-top: 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically on small screens */
-    align-items: center; /* Center items horizontally on small screens */
+    flex-direction: column;
+    align-items: center;
 }
 
 p {
     color: #0A1F1C;
     font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .box {
+        width: calc(95% - 10px);
+        margin: 5px;
+        height: auto;
+        white-space: normal;
+        text-overflow: ellipsis;
+    }
 }
