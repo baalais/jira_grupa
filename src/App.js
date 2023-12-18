@@ -11,7 +11,7 @@ export default function App() {
 
 
   const navigateToAddTask = () => {
-    navigate('/addTask');
+    navigate('/Add-task.php');
   };
   
 
