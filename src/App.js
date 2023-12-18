@@ -14,6 +14,43 @@ export default function App() {
     navigate('/Add-task');
   };
   
+  const checkLoginStatus = async () => {
+    try {
+      const response = await axios.get('http://localhost/karlis/jira/api/check_login.php');
+      const data = response.data;
+
+      console.log('Data received:', data);
+
+      if (data.isLoggedIn) {
+        setIsLoggedIn(true);
+        setUsername(data.username);
+        console.log('Username set:', data.username);
+        console.log('Username from state:', username); 
+        navigate('/');
+        return true;
+      } else {
+        setIsLoggedIn(false);
+        setUsername(null);
+        navigate('/login');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return false;
+    }
+  };
+
+
+  useEffect(() => {
+    console.log('useEffect triggered');
+    checkLoginStatus().then(loggedIn => {
+      if (!loggedIn) {
+        navigate('/login');
+      }
+    });
+  }, []);
+  
+
   const navigateToMyProject = () => {
     navigate('/MyProject');
   }
@@ -21,29 +58,6 @@ export default function App() {
   const navigateToSinglePage = () => {
     navigate('/SinglePage');
   }
-
-//   const checkLoginStatus = async () => {
-//     try {
-//       //http://localhost/jira_grupa/api/check_login.php <----- Link to use at home
-//       //http://localhost/karlis/jira/api/check_login.php <---- Link to use at school
-//       const response = await axios.get('http://localhost/jira_grupa/jira_grupa/api/check_login.php');
-//         const data = await response.data;
-//         setIsLoggedIn(data.isLoggedIn);
-//         setUsername(data.username);
-//         return data.isLoggedIn;  // Return the login status directly
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     checkLoginStatus().then(loggedIn => {
-//         if (!loggedIn) {  // Use the returned value
-//             navigate('/login');
-//         }
-//     });
-// }, []);
-
 
 
 //uztaisit vel sitadas navigateToXXXXX funkcijas lai aizsutitu uz citam lapam (calendar, projects etc.)

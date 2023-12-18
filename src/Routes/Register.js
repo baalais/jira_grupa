@@ -55,7 +55,7 @@ export default function Register(){
         //probably will need to change this api endpoint to work for other computers
         //http://localhost/jira_grupa/jira_grupa/api/register.php   <----- This is link to use at home
         //http://localhost/karlis/jira/api/register.php   <-------- This is link to use at school
-        fetch('http://localhost/jira_grupa/jira_grupa/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
+        fetch('http://localhost/karlis/jira/api/register.php', { method: 'POST', body: JSON.stringify(formData) })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

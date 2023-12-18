@@ -8,9 +8,6 @@ const Header = (props) => {
   const navigateToAddTask = () => {
       navigate('/addTask');
   };
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
   const navigateToSignOut = () => {
     navigate('/signOut');
   };
@@ -26,11 +23,7 @@ const Header = (props) => {
         <a onClick={navigateToHome} >Home</a>
         <a onClick={navigateToAddTask} >Tasks</a>
         <a href="#profile">Profile</a>
-        {props.username ? (
-          <a onClick={navigateToSignOut}>Sign Out</a>
-        ) : (
-          <a onClick={navigateToLogin}>Sign In</a>
-        )}
+        <a onClick={navigateToSignOut}>Sign Out</a>
         <h1>Welcome {props.username}</h1>
       </div>
     </header>

@@ -59,6 +59,16 @@ class Database {
         return $result->fetch_assoc();
     }
 
+    public function update($sql)
+    {
+        return $this->conn->query($sql);
+    }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
+
 }
 
 

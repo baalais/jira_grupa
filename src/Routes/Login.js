@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 export default function Login(){
@@ -34,7 +35,7 @@ export default function Login(){
             //probably will need to change this api endpoint to work for other computers
             //http://localhost/jira_grupa/jira_grupa/api/login.php   <----- This is link to use at home
             //http://localhost/karlis/jira/api/login.php   <-------- This is link to use at school
-            fetch('http://localhost/jira_grupa/jira_grupa/api/login.php', { 
+            fetch('http://localhost/karlis/jira/api/login.php', { 
                 method: 'POST', 
                 body: JSON.stringify(formData),
                 headers: {
@@ -46,7 +47,8 @@ export default function Login(){
                 if (data.status === 'success') {
                     // Success
                     console.log(data.message);
-                    console.log(data.status_session);
+                    console.log(data.token);
+                    Cookies.set('token', data.token);
                     navigate('/');
                 } else if (data.status === 'error') {
                     // Error
