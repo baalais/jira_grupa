@@ -24,4 +24,4 @@ const LogoutComponent = () => {
   );
 };
 
-export default LogoutComponent;
+export default LogoutComponent; 
