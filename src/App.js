@@ -11,11 +11,9 @@ export default function App() {
 
 
   const navigateToAddTask = () => {
-    navigate('/addTask');
+    navigate('/Add-task');
   };
   
-  //http://localhost/jira_grupa/jira_grupa/api/check_login.php <----- Link to use at home
-  //http://localhost/karlis/jira/api/check_login.php <---- Link to use at school
   const checkLoginStatus = async () => {
     try {
       const response = await axios.get('http://localhost/karlis/jira/api/check_login.php');
@@ -27,7 +25,7 @@ export default function App() {
         setIsLoggedIn(true);
         setUsername(data.username);
         console.log('Username set:', data.username);
-        console.log('Username from state:', username); // This might still log `null`
+        console.log('Username from state:', username); 
         navigate('/');
         return true;
       } else {
@@ -53,6 +51,13 @@ export default function App() {
   }, []);
   
 
+  const navigateToMyProject = () => {
+    navigate('/MyProject');
+  }
+
+  const navigateToSinglePage = () => {
+    navigate('/SinglePage');
+  }
 
 
 //uztaisit vel sitadas navigateToXXXXX funkcijas lai aizsutitu uz citam lapam (calendar, projects etc.)
@@ -64,7 +69,7 @@ export default function App() {
       <div className="base">
         <div className="mainContainer">
           <p>My project</p>
-          <div className="square">
+          <div onClick={navigateToMyProject} className="square">
           <span className="material-symbols-outlined">folder_copy</span>
           </div>
         </div>

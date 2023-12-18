@@ -1,34 +1,82 @@
-body{
-    justify-content: center;
-    background-color:#E0F5F2;
-}
-.box{
-    background-color:#8BD1F6;
-    width: 500px;
-    flex-wrap:wrap;
-}
-.top{
-    width:100%;
-    justify-content: center;
+/* src/Style/SinglePage.css */
+
+body {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    margin: 0;
+    background-color: #E0F5F2;
 }
-h1{
-    color:#0A1F1C;
-    font-weight: bold;
-    font-size:30px;
+
+#root {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
 }
-.desc{
-width: 80%;
-padding-left:40px;
-margin-top:20px;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px; 
+    width: 100%;
+    margin: 0 auto;
+    height:100%;
+    flex-grow: 1;
 }
-.bottom{
-    width:100%;
-    margin-top:50px;
-    display:flex;
+
+
+
+
+
+.box {
+    background-color: #8BD1F6;
+    width: 95%; /* Adjust width to leave some space on each side */
+    max-width: 800px; /* Set a maximum width to prevent overfilling */
+    margin: 0 auto; /* Center the box */
+    height: auto; /* Allow the box to adjust its height based on content */
+    max-height: 500px; /* Set a maximum height to prevent excessive growth */
+    padding: 20px; 
+    box-sizing: border-box; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
     justify-content: space-around;
 }
-p{
-    color:#0A1F1C;
-    font-size:20px;
+
+h1 {
+    color: #0A1F1C;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0; /* Reset margin to prevent spacing issues */
+}
+
+.desc {
+    padding: 20px; /* Adjust padding for better spacing */
+    width: 100%; /* Ensure full width */
+    word-wrap: break-word;
+}
+
+.bottom {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p {
+    color: #0A1F1C;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .box {
+        width: calc(95% - 10px);
+        margin: 5px;
+        height: auto;
+        white-space: normal;
+        text-overflow: ellipsis;
+    }
 }

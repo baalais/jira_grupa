@@ -11,13 +11,16 @@ const Header = (props) => {
   const navigateToSignOut = () => {
     navigate('/signOut');
   };
+  const navigateToHome = () =>{
+    navigate('/');
+  }
 
 
   //uztaisit navigateTo
   return (
     <header>
       <div className="navbar">
-        <a >Home</a>
+        <a onClick={navigateToHome} >Home</a>
         <a onClick={navigateToAddTask} >Tasks</a>
         <a href="#profile">Profile</a>
         <a onClick={navigateToSignOut}>Sign Out</a>
