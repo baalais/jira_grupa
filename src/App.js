@@ -11,10 +11,16 @@ export default function App() {
 
 
   const navigateToAddTask = () => {
-    navigate('/Add-task.php');
+    navigate('/Add-task');
   };
   
+  const navigateToMyProject = () => {
+    navigate('/MyProject');
+  }
 
+  const navigateToSinglePage = () => {
+    navigate('/SinglePage');
+  }
 
 //   const checkLoginStatus = async () => {
 //     try {
@@ -49,7 +55,7 @@ export default function App() {
       <div className="base">
         <div className="mainContainer">
           <p>My project</p>
-          <div className="square">
+          <div onClick={navigateToMyProject} className="square">
           <span className="material-symbols-outlined">folder_copy</span>
           </div>
         </div>
