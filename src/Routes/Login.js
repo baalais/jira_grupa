@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Login.css';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 export default function Login(){
@@ -47,6 +48,7 @@ export default function Login(){
                     // Success
                     console.log(data.message);
                     console.log(data.token);
+                    Cookies.set('token', data.token);
                     navigate('/');
                 } else if (data.status === 'error') {
                     // Error

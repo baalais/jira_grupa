@@ -27,15 +27,21 @@ export default function App() {
         setIsLoggedIn(true);
         setUsername(data.username);
         console.log('Username set:', data.username);
+        console.log('Username from state:', username); // This might still log `null`
+        navigate('/');
+        return true;
       } else {
         setIsLoggedIn(false);
         setUsername(null);
         navigate('/login');
+        return false;
       }
     } catch (error) {
       console.error('Error:', error);
+      return false;
     }
   };
+
 
   useEffect(() => {
     console.log('useEffect triggered');

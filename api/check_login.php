@@ -14,7 +14,7 @@ if (isset($_COOKIE['token'])) {
     if ($result && count($result) > 0) {
         // User is logged in
         $user = $result[0]; // Access the first row
-        echo json_encode(['isLoggedIn' => true, 'message' => 'User is logged in', 'username' => $user['username']]);
+        echo json_encode(['isLoggedIn' => true, 'message' => 'User is logged in', 'username' => $user['username'], 'token' => $token]);
     } else {
         // User is not logged in or token is invalid
         echo json_encode(['isLoggedIn' => false, 'message' => 'User is not logged in']);

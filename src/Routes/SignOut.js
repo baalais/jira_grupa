@@ -1,25 +1,27 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignOut() {
-    const navigate = useNavigate();
+const LogoutComponent = () => {
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.post('http://localhost/jira_grupa/jira_grupa/api/logout.php')
-            .then(response => {
-                if (response.data.status === 'success') {
-                    // Redirect or perform any other action after successful sign out
-                    navigate('/login');
-                } else {
-                    console.error('Error occurred during sign out');
-                }
-            })
-            .catch(error => {
-                console.error('Axios request failed:', error);
-            });
-    }, [navigate]);
+  // Effect to automatically logout on component mount
+  useEffect(() => {
+    handleLogout();
+  }, []); // Empty dependency array means this effect runs once on mount
 
-    // Render nothing
-    return null;
-}
+  // Remove token and navigate to '/login'
+  const handleLogout = () => {
+    Cookies.remove('token');
+    navigate('/login');
+  };
+
+  return (
+    <div>
+      {/* You can add any additional content or message here */}
+      <p>Logging out...</p>
+    </div>
+  );
+};
+
+export default LogoutComponent;

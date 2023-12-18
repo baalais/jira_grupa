@@ -30,16 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hashedPassword = $user['password'];
 
             if (password_verify($password, $hashedPassword)) {
-                // Authentication succeeded
                 $token = generateToken();
+                // Authentication succeeded
+                //setcookie('token', $token, time() + (86400), "/"); // 86400 seconds = 1 day
+
                 $userId = $user['id'];
                 $updateTokenQuery = "UPDATE `users` SET `token` = '$token' WHERE `id` = '$userId'";
                 $database->update($updateTokenQuery);
-
-                // Set the token as a cookie
-                setcookie('token', $token, time() + (86400 * 30), "/"); // 86400 seconds = 1 day
-
-                echo json_encode(['status' => 'success', 'message' => 'Login successful', 'token' => $token]);
+                
+                echo json_encode(['status' => 'success', 'message' => 'Login successful', 'token' => $token, 'cookie' => $_COOKIE]);
             } else {
                 $errors['password'] = "Invalid password.";
             }
